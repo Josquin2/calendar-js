@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  margin: auto;
+  margin-top: 15vh;
+  width: 40vw;
+  height: 24vw;
+  background-color: antiquewhite;
+  border-radius: 20px;
+  padding: 1vw;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.arrow {
+  width: 4vw;
+  height: 2vw;
+  border: 0;
+  border-radius: 15px;
+  background-color: white;
+  cursor: pointer;
+}
+.currentMonth {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+.common {
+  padding: 1vw;
+}
+.week {
+  list-style: none;
+  display: flex;
+}
+.week li {
+  width: calc(100% / 7);
+  text-align: center;
+}
+.month {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.month li {
+  width: calc(100% / 7);
+  text-align: center;
+  margin-top: 1.5vw;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.month li::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4vw;
+  height: 2vw;
+  border-radius: 10px;
+  z-index: -1;
+  transition: 0.1s;
+}
+.month li:hover::before {
+  background-color: white;
+}
+.hidden-day {
+  opacity: 30%;
+}
