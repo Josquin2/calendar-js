@@ -19,7 +19,7 @@ const months = [
 
 function displayDate() {
   let clickedDate = document.getElementById("clicked-date");
-  clickedDate.innerHTML = `You have clicked ${this.innerHTML} of ${months[thisMonth]}!`;
+  clickedDate.innerHTML = `You have clicked ${this.innerHTML} of ${months[thisMonth]} ${thisYear}`;
   clickedDate.className = "clicked-date";
   let clear = () => {
     clickedDate.innerHTML = "";
@@ -53,6 +53,13 @@ function loadingMonth() {
     appendedLi.textContent = i;
     appendedLi.id = "alo";
     appendedLi.onclick = displayDate;
+    if (
+      i == new Date().getDate() &&
+      thisMonth == new Date().getMonth() &&
+      thisYear == new Date().getFullYear()
+    ) {
+      appendedLi.className += "today";
+    }
     document.getElementById("dates").appendChild(appendedLi);
   }
   for (let i = lastDays; i < 6; i++) {
