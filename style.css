@@ -72,3 +72,20 @@
 .hidden-day {
   opacity: 30%;
 }
+.clicked-date-none {
+  text-align: center;
+  margin: auto;
+  width: 40vw;
+  height: 2vw;
+  background-color: white;
+}
+
+.clicked-date {
+  margin: auto;
+  margin-top: 10px;
+  text-align: center;
+  background-color: antiquewhite;
+  border-radius: 20px;
+  width: 40vw;
+  height: 2vw;
+}

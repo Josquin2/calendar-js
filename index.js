@@ -1,6 +1,6 @@
-const currentMonth = new Date().getMonth();
-thisMonth = currentMonth;
-let lastDate = new Date(2024, thisMonth + 1, 0).getDate();
+let date = new Date();
+let thisMonth = date.getMonth();
+let thisYear = date.getFullYear();
 
 const months = [
   "January",
@@ -16,51 +16,78 @@ const months = [
   "November",
   "December",
 ];
-function loadingDates() {
-  // TODO: Set Years
-  let lia;
-  let currentYear = new Date().getFullYear();
-  document.getElementById("currentYear").innerHTML = currentYear;
-  let lastDate = new Date(2024, thisMonth + 1, 0).getDate();
-  let lastDateofLastMonth = new Date(2024, thisMonth, 0).getDate();
-  let firstDay = new Date(2024, thisMonth, 1).getDay();
-  let fewLastDays = new Date(2024, thisMonth, lastDate).getDay();
-  for (let i = firstDay; i > 0; i--) {
-    lia = document.createElement("li");
-    lia.innerHTML = lastDateofLastMonth - i + 1;
-    lia.className += "hidden-day";
-    document.getElementById("dates").appendChild(lia);
-  }
-  for (let i = 1; i < lastDate + 1; i++) {
-    lia = document.createElement("li");
-    lia.innerHTML = i;
-    document.getElementById("dates").appendChild(lia);
-  }
-  for (let i = fewLastDays; i < 6; i++) {
-    lia = document.createElement("li");
-    lia.innerHTML = i - fewLastDays + 1;
-    lia.className += "hidden-day";
-    document.getElementById("dates").appendChild(lia);
-  }
-}
-loadingDates();
 
-function displayDate(a) {
-  // TODO: Display clicked days!
+function displayDate() {
+  let clickedDate = document.getElementById("clicked-date");
+  clickedDate.innerHTML = `You have clicked ${this.innerHTML} of ${months[thisMonth]}!`;
+  clickedDate.className = "clicked-date";
+  let clear = () => {
+    clickedDate.innerHTML = "";
+    clickedDate.className = "clicked-date-none";
+  };
+  setTimeout(clear, 2000);
 }
 
-window.onload = function loadingMonth() {
-  document.getElementById("currentMonth").innerHTML = months[currentMonth];
-};
+function loadingMonth() {
+  document.getElementById("currentMonth").innerHTML = months[thisMonth];
+  let lastDayOfLastMonth = new Date(thisYear, thisMonth, 0).getDate();
+  let lastDayOfMonth = new Date(thisYear, thisMonth + 1, 0).getDate();
+  let firstDays = new Date(thisYear, thisMonth, 1).getDay();
+  let lastDays = new Date(thisYear, thisMonth, lastDayOfMonth).getDay();
+
+  document.getElementById("year").innerHTML = thisYear;
+
+  console.log(lastDayOfMonth);
+  let appendedLi;
+
+  for (let i = firstDays; i > 0; i--) {
+    appendedLi = document.createElement("li");
+    appendedLi.className += "hidden-day";
+    appendedLi.textContent = lastDayOfLastMonth - i;
+
+    document.getElementById("dates").appendChild(appendedLi);
+  }
+
+  for (let i = 1; i < lastDayOfMonth + 1; i++) {
+    appendedLi = document.createElement("li");
+    appendedLi.textContent = i;
+    appendedLi.id = "alo";
+    appendedLi.onclick = displayDate;
+    document.getElementById("dates").appendChild(appendedLi);
+  }
+  for (let i = lastDays; i < 6; i++) {
+    appendedLi = document.createElement("li");
+    appendedLi.className += "hidden-day";
+    appendedLi.textContent = i + 1;
+
+    document.getElementById("dates").appendChild(appendedLi);
+  }
+}
+
 function nextMonth() {
-  document.getElementById("currentMonth").innerHTML = months[thisMonth + 1];
-  thisMonth++;
-  document.getElementById("dates").innerHTML = "";
-  loadingDates();
+  if (thisMonth > 10) {
+    thisYear++;
+    thisMonth = 0;
+    document.getElementById("dates").innerHTML = "";
+    loadingMonth();
+  } else {
+    thisMonth++;
+    console.log(thisMonth);
+    document.getElementById("dates").innerHTML = "";
+    loadingMonth();
+  }
 }
 function previousMonth() {
-  document.getElementById("currentMonth").innerHTML = months[thisMonth - 1];
-  thisMonth--;
-  document.getElementById("dates").innerHTML = "";
-  loadingDates();
+  if (thisMonth < 1) {
+    thisYear--;
+    thisMonth = 11;
+    document.getElementById("dates").innerHTML = "";
+    loadingMonth();
+  } else {
+    thisMonth--;
+    console.log(thisMonth);
+    document.getElementById("dates").innerHTML = "";
+    loadingMonth();
+  }
 }
+loadingMonth();
